@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+   <properties resource="mysql.properties"/> 
+   <context  id="mysqlTables"   targetRuntime="MyBatis3">
+   	  <property name="beginningDelimiter" value="`"/>
+      <property name="endingDelimiter" value="`"/>
+   	  <plugin type="com.self.pulgins.MySQLLimitPlugin"></plugin>
+      <jdbcConnection  driverClass="${jdbc.driverClass}"
+         connectionURL="${jdbc.url}"  userId="${jdbc.username}"  password="${jdbc.password}"/>
+ 
+      <!--指定生成的类型为java类型，避免数据库中number等类型字段 -->
+      <javaTypeResolver>
+        <property name="forceBigDecimals" value="false"/>
+      </javaTypeResolver>
+ 
+      <!--自动生成的实体的存放包路径 -->
+      <javaModelGenerator  targetPackage="com.gg.springbootvuejs.base.dao.entity"
+         targetProject="../springbootvuejs-dao/src/main/java">
+        <property  name="enableSubPackages"  value="true"/>
+          <property  name="trimStrings"  value="true"/>
+      </javaModelGenerator>
+ 
+      <!--自动生成的*Mapper.xml文件存放路径 -->
+      <sqlMapGenerator  targetPackage="mybatis/mapper/base"
+          targetProject="../springbootvuejs-dao/src/main/resources">
+        <property  name="enableSubPackages"  value="true"/>
+      </sqlMapGenerator>
+ 
+      <!--自动生成的*Mapper.java存放路径 -->
+      <javaClientGenerator type="XMLMAPPER"
+         targetPackage="com.gg.springbootvuejs.base.dao.mapper"  targetProject="../springbootvuejs-dao/src/main/java">
+        <property  name="enableSubPackages"  value="true"/>
+      </javaClientGenerator>
+     
+	  <table  tableName="upms_user"   domainObjectName="UpmsUser">
+	     <generatedKey  column="user_id"  sqlStatement="select uuid_short()"   identity="false"/>
+	     <columnOverride column="status" javaType="java.lang.Integer"></columnOverride>
+	     <columnOverride column="version" javaType="java.lang.Integer"></columnOverride>
+	  </table>
+	  <table  tableName="upms_permission"   domainObjectName="UpmsPermission">
+	  	<generatedKey  column="permission_id"  sqlStatement="select uuid_short()"   identity="false"/>
+	  	<columnOverride column="type" javaType="java.lang.Integer"></columnOverride>
+	    <columnOverride column="status" javaType="java.lang.Integer"></columnOverride>
+	    <columnOverride column="version" javaType="java.lang.Integer"></columnOverride>
+	  </table>
+	  <table  tableName="upms_role"   domainObjectName="UpmsRole">
+	     <generatedKey  column="role_id"  sqlStatement="select uuid_short()"   identity="false"/>
+	     <columnOverride column="version" javaType="java.lang.Integer"></columnOverride>
+	  </table>
+	  <table  tableName="upms_role_permission"   domainObjectName="UpmsRolePermission">
+	     <generatedKey  column="role_permission_id"  sqlStatement="select uuid_short()"   identity="false"/>
+	  </table>
+	  <table  tableName="upms_user_role"   domainObjectName="UpmsUserRole">
+	     <generatedKey  column="user_role_id"  sqlStatement="select uuid_short()"   identity="false"/>
+	  </table>
+   </context>
+ 
+</generatorConfiguration>
